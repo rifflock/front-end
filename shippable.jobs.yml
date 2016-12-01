@@ -1,0 +1,33 @@
+# TEST deployment to Amazon ECS
+  - name: Riffle-ecs-deploy-test-front-end
+    type: deploy
+    steps:
+      - IN: man-front-end
+      - IN: params-front-end-test
+      - IN: trigger-front-end-test
+      - IN: cluster-demo-ecs
+      - IN: alb-front-end-test
+        applyTo:
+          - manifest: man-front-end
+            image: img-front-end
+            port: 40003
+      - TASK: managed
+# PROD deployment to Amazon ECS
+  - name: Riffle-ecs-deploy-prod-front-end
+    type: deploy
+    steps:
+      - IN: Riffle-ecs-deploy-test-front-end
+        switch: off
+      # - IN: release-front-end
+      #   switch: off
+      - IN: img-opts-front-end-prod
+      - IN: params-front-end-prod
+      - IN: replicas-front-end-prod
+      - IN: trigger-front-end-prod
+      - IN: alb-front-end-prod
+        applyTo:
+          - manifest: man-front-end
+            image: img-front-end
+            port: 50003
+      - IN: cluster-demo-ecs
+      - TASK: managed

@@ -1,0 +1,28 @@
+# Docker image options for TEST environment
+  - name: img-opts-front-end-test
+    type: dockerOptions
+    version:
+      portMappings:
+        - 40003:40003
+# Environment variables for TEST environment
+  - name: params-front-end-test
+    type: params
+    version:
+      params:
+        ENVIRONMENT: "development"
+        NODE_ENV: "development"
+        PORT: 40003
+# Docker image options for PROD environment
+  - name: img-opts-front-end-prod
+    type: dockerOptions
+    version:
+      portMappings:
+        - 50003:50003
+# Environment variables for PROD environment
+  - name: params-front-end-prod
+    type: params
+    version:
+      params:
+        ENVIRONMENT: "production"
+        NODE_ENV: "production"
+        PORT: 50003
